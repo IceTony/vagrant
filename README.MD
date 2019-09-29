@@ -10,5 +10,6 @@ vagrant box add digital_ocean https://github.com/devopsgroup-io/vagrant-digitalo
 ```
 ## Запуск
 ```
+cd digital_ocean
 vagrant up
 ```

@@ -1,3 +1,4 @@
+# Add second 100gb disk to droplet and mount it to /srv/data
 apt update -y && apt install curl -y &&
 curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $1" -d '{"size_gigabytes":100, "name": "icetony-volume", "description": "Block store for examples", "region": "nyc1"}' "https://api.digitalocean.com/v2/volumes" &&
 droplet_id=$(curl http://169.254.169.254/metadata/v1/id) &&

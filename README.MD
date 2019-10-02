@@ -13,3 +13,9 @@ vagrant box add digital_ocean https://github.com/devopsgroup-io/vagrant-digitalo
 cd digital_ocean
 vagrant up
 ```
+## Запуск роли route53
+Для запуска необходимо установить переменные окружения:
+```
+export AWS_ACCESS_KEY_ID="WEF243SFLI4342HGLDFGLH32"
+export AWS_SECRET_ACCESS_KEY="xrm73yznr3XPM34Y7N3Y7hnd7z8934XFZF3"
+```

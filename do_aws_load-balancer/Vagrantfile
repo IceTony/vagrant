@@ -1,0 +1,40 @@
+PRIVATE_KEY_PATH = "~/.ssh/id_rsa"
+TOKEN = "my_do_token"
+
+Vagrant.configure("2") do |config|
+  config.vm.define "icetony-droplet-1" do |droplet|
+    droplet.vm.provider :digital_ocean do |provider, override|
+      override.ssh.private_key_path = PRIVATE_KEY_PATH
+      override.vm.box = 'digital_ocean'
+      override.nfs.functional = false
+      override.vm.allowed_synced_folder_types = :rsync
+      provider.token = TOKEN
+      provider.image = 'ubuntu-18-04-x64'
+      provider.region = 'nyc1'
+      provider.size = 's-1vcpu-1gb'
+      provider.private_networking = 'true'
+    end
+  end
+
+  config.vm.define "icetony-droplet-2" do |droplet|
+    droplet.vm.provider :digital_ocean do |provider, override|
+      override.ssh.private_key_path = PRIVATE_KEY_PATH
+      override.vm.box = 'digital_ocean'
+      override.nfs.functional = false
+      override.vm.allowed_synced_folder_types = :rsync
+      provider.token = TOKEN
+      provider.image = 'ubuntu-18-04-x64'
+      provider.region = 'nyc1'
+      provider.size = 's-1vcpu-1gb'
+      provider.private_networking = 'true'
+    end
+  end
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "ansible/playbook.yml"
+    ansible.host_vars = {
+      "icetony-droplet-1" => {"vm_number" => 1},
+      "icetony-droplet-2" => {"vm_number" => 2}
+    }
+  end
+end

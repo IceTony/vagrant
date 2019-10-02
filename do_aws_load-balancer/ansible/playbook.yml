@@ -1,0 +1,19 @@
+---
+
+- name: Add entries in Amazons Route53 DNS service
+  hosts: all
+  gather_facts: yes
+  roles:
+    - route53
+
+- name: Configure nginx as load balancer
+  hosts: icetony-droplet-1
+  gather_facts: yes
+  roles:
+    - nginx_load_balancer
+    
+- name: Configure virtual hosts
+  hosts: icetony-droplet-2
+  gather_facts: yes
+  roles:
+    - nginx_configure_virtual_hosts

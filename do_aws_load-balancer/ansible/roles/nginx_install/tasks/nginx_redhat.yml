@@ -1,0 +1,33 @@
+---
+
+- name: add nginx yum repo
+  yum_repository:
+    name: nginx
+    description: Nginx Repository
+    baseurl: http://nginx.org/packages/centos/7/$basearch/
+    gpgkey: http://nginx.org/packages/keys/nginx_signing.key
+    gpgcheck: yes
+
+- name: yum install nginx
+  yum:
+    name: nginx
+    state: present
+    update_cache: yes
+  notify: start nginx
+
+- name: force run handler
+  meta: flush_handlers
+
+- name: firewall allow services
+  firewalld:
+    service: "{{ item }}"
+    permanent: yes
+    state: enabled
+  with_items:
+    - "http"
+    - "https"
+  notify: reload firewalld
+
+- name: force run handler
+  meta: flush_handlers
+

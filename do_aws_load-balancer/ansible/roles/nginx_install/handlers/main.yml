@@ -1,0 +1,16 @@
+---
+
+- name: reload nginx
+  service:
+    name: nginx
+    state: reloaded
+
+- name: start nginx
+  service:
+    name: nginx
+    state: started
+
+- name: reload firewalld
+  service:
+    name: firewalld
+    state: reloaded
